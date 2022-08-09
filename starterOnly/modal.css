@@ -478,6 +478,9 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
+
+
+
 @media screen and (max-width: 800px) {
   .hero-section {
     display: block;
@@ -527,3 +530,24 @@ footer {
   }
 }
 
+
+
+.error-msg {
+  color:#fe142f;
+  font-size: 1rem;
+}
+
+#validation {
+  display: none;
+  height: 800px;
+}
+
+#validation p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  min-height: 700px;
+  align-items: center;
+}
