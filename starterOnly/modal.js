@@ -12,6 +12,7 @@ const CloseModal = (selector) => { selector.style.display = "none" }
 
 
 // DOM Elements
+//Modal
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
@@ -19,6 +20,7 @@ const formClose = document.querySelectorAll(".close");
 const validationClose = document.getElementById("validation-close");
 const modalValidation = document.getElementById("validation");
 
+//Form entries
 const firstName = document.getElementById("first");
 const lastName = document.getElementById("last");
 const email = document.getElementById("email");
@@ -27,6 +29,7 @@ const quantity = document.getElementById("quantity");
 const checkLocation = document.getElementsByName("location");
 const checkbox = document.getElementById("checkbox1");
 
+//Error messages
 const errorFirstName = firstName.nextElementSibling.nextElementSibling;
 const errorLastName = lastName.nextElementSibling.nextElementSibling;
 const errorEmail = email.nextElementSibling.nextElementSibling;
@@ -42,12 +45,17 @@ modalBtn.forEach((btn) => btn.addEventListener("click", () => OpenModal(modalbg)
 // Close modal event
 formClose.forEach((btn) => btn.addEventListener("click", () => CloseModal(modalbg)));
 
-//Close modal
+//Close validation modal event
 modalValidation.onclick = (event) => { CloseModal(modalbg) }
 
 
-//validation de formulaire
 
+
+//////////////////////////////
+///validation de formulaire///
+//////////////////////////////
+
+//Fonction vérification de chaque entrée
 function formValidation() {
   const e1 = firstNameValidation(),
     e2 = lastNameValidation(),
@@ -99,16 +107,23 @@ function emailValidation() {
 
 
 //Validation Date de Naissance
-
 function birthDateValidation(event) {
   errorBirthDate.textContent = ""
-  const regexBirthDate = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/
 
-  if (!regexBirthDate.test(birthDate.value)) {
-    errorBirthDate.textContent = "Insérer date de naissance valide"
+  //Récupération date du jour et année de naissance du formulaire
+  const date = new Date()
+  const thisYear = date.getFullYear()
+  const birthYear = birthDate.value.split("-")[0]
+  const age = thisYear - birthYear
+  console.log(age)
+
+  if ((age < 18 || age > 99)) {
+    errorBirthDate.textContent = "Vous devez avoir entre 18 et 99 ans"
     return false;
   }
+  console.log(age)
   return true;
+
 }
 
 
@@ -132,8 +147,6 @@ function cityValidation() {
     errorLocation.textContent = "Veuillez choisir une ville"
     return false;
   }
-
-  console.log("ville valide");
   return true;
 }
 
@@ -145,11 +158,10 @@ function CGUValidation() {
     errorCheckBox.textContent = "Veuillez accepter les conditions d'utilisation";
     return false;
   }
-
-  console.log("CGU validé");
   return true;
 }
 
+//Event listener form
 firstName.onchange = () => { firstNameValidation() }
 lastName.onchange = () => { lastNameValidation() }
 email.onchange = () => { emailValidation() }
