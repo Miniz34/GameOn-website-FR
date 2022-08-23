@@ -110,17 +110,13 @@ function emailValidation() {
 function birthDateValidation(event) {
   errorBirthDate.textContent = ""
 
-  const date = new Date()
-  const thisYear = date.getFullYear() // Plus utilisé
-  const birthYear = new Date(birthDate.value)
-
-  function getAge(birthYear) {
-    var ageInMilliseconds = new Date() - new Date(birthYear);
+  //Calcul de l'age
+  function getAge(birthDate) {
+    var ageInMilliseconds = new Date() - new Date(birthDate.value);
     return Math.floor(ageInMilliseconds / 1000 / 60 / 60 / 24 / 365); // convert to years
   }
-  console.log(getAge(birthYear))
 
-  if ((getAge(birthYear) < 18 || getAge(birthYear) > 99)) {
+  if ((getAge(birthDate) < 18 || getAge(birthDate) > 99)) {
     errorBirthDate.textContent = "Vous devez avoir entre 18 et 99 ans"
     return false;
   }
