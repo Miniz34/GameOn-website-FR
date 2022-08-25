@@ -46,7 +46,7 @@ modalBtn.forEach((btn) => btn.addEventListener("click", () => OpenModal(modalbg)
 formClose.forEach((btn) => btn.addEventListener("click", () => CloseModal(modalbg)));
 
 //Close validation modal event
-modalValidation.onclick = (event) => { CloseModal(modalbg) }
+validationClose.onclick = (event) => { CloseModal(modalbg) }
 
 
 
@@ -113,6 +113,7 @@ function birthDateValidation(event) {
   //Calcul de l'age
   function getAge(birthDate) {
     var ageInMilliseconds = new Date() - new Date(birthDate.value);
+    console.log(ageInMilliseconds)
     return Math.floor(ageInMilliseconds / 1000 / 60 / 60 / 24 / 365); // convert to years
   }
 
