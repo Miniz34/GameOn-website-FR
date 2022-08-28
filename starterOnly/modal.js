@@ -14,6 +14,7 @@ const CloseModal = (selector) => { selector.style.display = "none" }
 // DOM Elements
 //Modal
 const modalbg = document.querySelector(".bground");
+const mainForm = document.querySelector(".form-submit");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const formClose = document.querySelectorAll(".close");
@@ -43,10 +44,18 @@ const errorCheckBox = checkbox.nextElementSibling.nextElementSibling.nextElement
 modalBtn.forEach((btn) => btn.addEventListener("click", () => OpenModal(modalbg)));
 
 // Close modal event
-formClose.forEach((btn) => btn.addEventListener("click", () => CloseModal(modalbg)));
+formClose.forEach((btn) => btn.addEventListener("click", function () {
+  CloseModal(modalbg)
+  location.reload()
+}
+));
 
-//Close validation modal event
-validationClose.onclick = (event) => { CloseModal(modalbg) }
+validationClose.addEventListener("click", function () {
+  CloseModal(modalbg);
+  location.reload()
+})
+
+// validationClose.forEach((btn) => btn.addEventListener("click", () => CloseModal(modalbg)));
 
 
 
@@ -69,12 +78,17 @@ function formValidation() {
 
 
 
+const nameRegex = /^[a-zA-Zàâäéèêëïîôöùûüç-]{2,128}$/
+//Regex basique qui accepte lettres de a à z en majuscules et minuscules, les principaux accents et -
+
+
 //Validation Prénom
+
 function firstNameValidation() {
   errorFirstName.textContent = "";
 
-  if (firstName.value.length < 2) {
-    errorFirstName.textContent = "Veuillez renseigner plus de 2 lettres";
+  if (!nameRegex.test(firstName.value)) {
+    errorFirstName.textContent = "Veuillez renseigner un prénom de plus de 2 lettres valide";
     return false;
   }
   return true;
@@ -85,8 +99,8 @@ function firstNameValidation() {
 function lastNameValidation() {
   errorLastName.textContent = "";
 
-  if (lastName.value.length < 2) {
-    errorLastName.textContent = "Veuillez renseigner plus de 2 lettres";
+  if (!nameRegex.test(lastName.value)) {
+    errorLastName.textContent = "Veuillez renseigner un nom de famille de plus de 2 lettres valide";
     return false;
   }
   return true;
@@ -96,7 +110,7 @@ function lastNameValidation() {
 //Validation Email
 function emailValidation() {
   errorEmail.textContent = ""
-  const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.[A-Za-z]{2,3})+$/;
 
   if (!regexEmail.test(email.value)) {
     errorEmail.textContent = "Veuillez insérer un email valide"
